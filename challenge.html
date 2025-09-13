@@ -2,44 +2,40 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>나만의 암호 만들기 챌린지</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
-    input, textarea { width: 80%; margin: 10px; padding: 10px; }
-    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
-  </style>
+  <title>나만의 암호 만들기 챌린지 ✏️</title>
 </head>
 <body>
-  <h1>🔐 나만의 암호 만들기 챌린지</h1>
-  <form id="cryptoForm">
-    <textarea id="rule" placeholder="내 암호 규칙" required></textarea><br>
-    <input type="text" id="cipher" placeholder="암호문 입력" required><br>
-    <button type="submit">공유하기</button>
-  </form>
-  <div id="status"></div>
+  <h1>나만의 암호 만들기 챌린지 ✏️</h1>
+
+  <label>학생ID: <input type="text" id="studentId" placeholder="예: 1번학생"></label><br>
+  <label>암호 규칙: <input type="text" id="rule" placeholder="예: A→D, B→E"></label><br>
+  <label>암호문: <textarea id="cipher" placeholder="암호문 입력"></textarea></label><br>
+  <button onclick="submitData()">자동 제출</button>
+
+  <p id="status"></p>
 
   <script>
-    document.getElementById("cryptoForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const rule = document.getElementById("rule").value;
-      const cipher = document.getElementById("cipher").value;
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwq-VbVUoid_as-zmobxk7-FhKW0GY_PBj3rIotBBi_W-uQvODNEEGJOvpcYNSg-4VL/exec"; // Apps Script URL
 
-      // ⚠️ Google Apps Script Web App URL로 교체 필요
-      const scriptURL = "https://script.google.com/macros/s/AKfycbwq-VbVUoid_as-zmobxk7-FhKW0GY_PBj3rIotBBi_W-uQvODNEEGJOvpcYNSg-4VL/exec";
+    function submitData() {
+      const data = {
+        studentId: document.getElementById("studentId").value,
+        rule: document.getElementById("rule").value,
+        cipher: document.getElementById("cipher").value
+      };
 
       fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify({ rule: rule, cipher: cipher }),
-        headers: { "Content-Type": "application/json" }
+        method: 'POST',
+        body: JSON.stringify(data)
       })
-      .then(() => {
-        document.getElementById("status").innerText = "✅ 저장 완료! 선생님이 확인할 수 있습니다.";
-        document.getElementById("cryptoForm").reset();
+      .then(response => response.json())
+      .then(result => {
+        document.getElementById("status").textContent = "✅ 제출 완료! 시트에 기록되었습니다.";
       })
-      .catch(() => {
-        document.getElementById("status").innerText = "⚠️ 저장 실패. 다시 시도해주세요.";
+      .catch(error => {
+        document.getElementById("status").textContent = "❌ 제출 실패: " + error;
       });
-    });
+    }
   </script>
 </body>
 </html>

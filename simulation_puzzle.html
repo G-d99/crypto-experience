@@ -2,23 +2,22 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>이산 로그 퍼즐 게임</title>
+    <title>이산 로그 퍼즐 게임 🔐</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f9f9f9; }
         #logMessage { margin-top: 20px; color: #333; font-size: 16px; }
         input[type="number"] { width: 100px; padding: 5px; font-size: 16px; }
-        button { padding: 10px 20px; font-size: 16px; margin: 10px; cursor: pointer; }
+        button { padding: 10px 20px; font-size: 16px; margin: 10px; cursor: pointer; border-radius: 6px; background-color: #27ae60; color: white; border: none; }
+        button:hover { background-color: #1e8449; }
         #result { margin-top: 20px; font-weight: bold; font-size: 18px; color: green; }
     </style>
 </head>
 <body>
     <h1>이산 로그 퍼즐 게임 🔐</h1>
-    <p>“컴퓨터가 목표 숫자를 찾는 과정과 역연산이 왜 어려운지 체험해보세요.”</p>
+    <p>컴퓨터가 목표 숫자를 찾는 과정과 역연산의 어려움을 체험해보세요.</p>
 
-    <p>목표 숫자: <span id="targetNumber"></span></p>
-
-    <label for="guess">추측 숫자 입력:</label>
-    <input type="number" id="guess" min="0">
+    <label for="guess">추측 숫자 입력 (1~50):</label>
+    <input type="number" id="guess" min="1" max="50">
     <button onclick="checkGuess()">제출</button>
 
     <p id="logMessage">힌트: 목표 숫자를 맞춰보세요!</p>
@@ -26,11 +25,8 @@
     <p id="result"></p>
 
     <script>
-        // 랜덤 목표 숫자 생성
-        const maxNumber = 50; // 작은 범위로 테스트용
-        const target = Math.floor(Math.random() * maxNumber) + 1;
-        document.getElementById('targetNumber').textContent = target;
-
+        const maxNumber = 50;
+        const target = Math.floor(Math.random() * maxNumber) + 1; // 목표 숫자 숨김
         let attempts = 0;
 
         function checkGuess() {
@@ -50,4 +46,5 @@
     </script>
 </body>
 </html>
+
 
