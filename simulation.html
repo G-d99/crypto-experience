@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>이산 로그 시뮬레이션</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    #log { margin-top: 20px; font-size: 16px; white-space: pre-line; }
+  </style>
+</head>
+<body>
+  <h1>🔢 이산 로그 시뮬레이션</h1>
+  <button onclick="startSimulation()">시작하기</button>
+  <div id="log"></div>
+
+  <script>
+    function startSimulation() {
+      const logDiv = document.getElementById("log");
+      logDiv.innerText = "";
+      const numbers = Array.from({length: 50}, (_, i) => i + 1);
+      const target = Math.floor(Math.random() * 50) + 1;
+
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < numbers.length) {
+          logDiv.innerText += `시도: ${numbers[i]}\n`;
+          if (numbers[i] === target) {
+            logDiv.innerText += `🎯 찾았다! 목표 숫자는 ${target}\n`;
+            logDiv.innerText += "➡ 이산 로그 문제는 이렇게 역연산이 어려운 문제입니다!";
+            clearInterval(interval);
+          }
+          i++;
+        }
+      }, 200);
+    }
+  </script>
+</body>
+</html>
