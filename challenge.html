@@ -7,6 +7,8 @@
 <body>
   <h1>나만의 암호 만들기 챌린지 ✏️</h1>
 
+  <p>학생ID, 암호 규칙, 암호문을 입력하고 버튼을 눌러 제출하세요. 제출하면 Google 시트에 자동 기록됩니다.</p>
+
   <label>학생ID: <input type="text" id="studentId" placeholder="예: 1번학생"></label><br>
   <label>암호 규칙: <input type="text" id="rule" placeholder="예: A→D, B→E"></label><br>
   <label>암호문: <textarea id="cipher" placeholder="암호문 입력"></textarea></label><br>
@@ -15,7 +17,8 @@
   <p id="status"></p>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzeBlG82hoO8KhCnMrmPEcENFiD-us8xlDsuzcB0b_IxVdUqhggnt93Qd4WqIMtJpVJ/exec"; // 실제 Apps Script URL로 변경
+    // 배포된 Apps Script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwgfqaH29cAst7S3UWqVPaYUrxL9EunwZwnm8-sqSlShEi6n9EOdnishvjzPJvsIFI/exec";
 
     function submitData() {
       const data = {
@@ -26,14 +29,13 @@
 
       fetch(scriptURL, {
         method: 'POST',
-        mode: 'cors', // GitHub Pages에서 동작하도록 필수
-        headers: { 'Content-Type': 'application/json' }, // JSON 형식 지정
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       })
-      .then(response => response.json()) // Apps Script에서 JSON 반환하도록 설정 필요
+      .then(response => response.json())
       .then(result => {
         document.getElementById("status").textContent = "✅ 제출 완료! 시트에 기록되었습니다.";
-        // 입력 필드 초기화
         document.getElementById("studentId").value = "";
         document.getElementById("rule").value = "";
         document.getElementById("cipher").value = "";
@@ -45,4 +47,5 @@
   </script>
 </body>
 </html>
+
 
