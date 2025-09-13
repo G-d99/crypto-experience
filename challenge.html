@@ -26,11 +26,17 @@
 
       fetch(scriptURL, {
         method: 'POST',
+        mode: 'cors', // CORS 모드 활성화
+        headers: { 'Content-Type': 'application/json' }, // JSON 형식 지정
         body: JSON.stringify(data)
       })
-      .then(response => response.json())
+      .then(response => response.text())
       .then(result => {
         document.getElementById("status").textContent = "✅ 제출 완료! 시트에 기록되었습니다.";
+        // 입력 초기화 (선택 사항)
+        document.getElementById("studentId").value = "";
+        document.getElementById("rule").value = "";
+        document.getElementById("cipher").value = "";
       })
       .catch(error => {
         document.getElementById("status").textContent = "❌ 제출 실패: " + error;
