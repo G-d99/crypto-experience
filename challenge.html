@@ -15,7 +15,7 @@
   <p id="status"></p>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyS3Q5mhxr48agiPqvYd91AdCoBzY5y-ohXEeEhwl_8vSxkXqj1OG0Fzt25Uw9RdQ8s/exec"; // Apps Script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzeBlG82hoO8KhCnMrmPEcENFiD-us8xlDsuzcB0b_IxVdUqhggnt93Qd4WqIMtJpVJ/exec"; // 실제 Apps Script URL로 변경
 
     function submitData() {
       const data = {
@@ -26,14 +26,14 @@
 
       fetch(scriptURL, {
         method: 'POST',
-        mode: 'cors', // CORS 모드 활성화
+        mode: 'cors', // GitHub Pages에서 동작하도록 필수
         headers: { 'Content-Type': 'application/json' }, // JSON 형식 지정
         body: JSON.stringify(data)
       })
-      .then(response => response.text())
+      .then(response => response.json()) // Apps Script에서 JSON 반환하도록 설정 필요
       .then(result => {
         document.getElementById("status").textContent = "✅ 제출 완료! 시트에 기록되었습니다.";
-        // 입력 초기화 (선택 사항)
+        // 입력 필드 초기화
         document.getElementById("studentId").value = "";
         document.getElementById("rule").value = "";
         document.getElementById("cipher").value = "";
@@ -45,3 +45,4 @@
   </script>
 </body>
 </html>
+
